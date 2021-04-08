@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render-to-jsx-transformer</title>
+    <script src="https://unpkg.com/@babel/standalone@7.13.13/babel.min.js"></script>
+    <script src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.13.5/beautify-html.min.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="editors">
+      <div class="editor editor-js">
+React.createElement(
+  'div',
+  { className: 'hello-world' },
+  'Hello, World!'
+);
+      </div>
+
+      <div class="editor editor-html"></div>
+    </div>
+
+    <script>
+      const jsEditor = new CodeFlask('.editor-js', {
+        language: 'js',
+        lineNumbers: true
+      });
+
+      const htmlEditor = new CodeFlask('.editor-html', {
+        language: 'html',
+        lineNumbers: true,
+        readonly: true
+      });
+
+      function updateHTML(code) {
+        htmlEditor.updateCode(
+          html_beautify(
+            transformCode(code),
+            {
+              indent_size: 2,
+              wrap_attributes: 'force-expand-multiline'
+            }
+          )
+        );
+      }
+
+      jsEditor.onUpdate(() => updateHTML(jsEditor.code));
+      updateHTML(jsEditor.code);
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .editors {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+
+      .editor {
+        position: relative;
+        width: 50%;
+      }
+    </style>
+  </body>
+</html>

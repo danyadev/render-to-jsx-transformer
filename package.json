@@ -1,0 +1,11 @@
+{
+  "name": "render-to-jsx-transformer",
+  "version": "1.0.0",
+  "description": "Transforms React.createElement calls to JSX syntax",
+  "scripts": {
+    "build": "rollup src/index.js --file docs/index.js --format iife"
+  },
+  "repository": "https://github.com/danyadev/render-to-jsx-transformer",
+  "author": "danyadev <danyadev@mail.ru>",
+  "license": "Apache-2.0"
+}
